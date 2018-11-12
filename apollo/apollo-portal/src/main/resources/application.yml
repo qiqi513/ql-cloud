@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: apollo-portal
+  profiles:
+    active: github
+server:
+  port: 2005
+  compression:
+    enabled: true
+  
+logging:
+  file: /opt/logs/apollo-portal/apollo-portal.log
+
+management:
+  health:
+    status:
+      order: DOWN, OUT_OF_SERVICE, UNKNOWN, UP 
+
+

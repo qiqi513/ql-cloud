@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: apollo-adminservice-dev
+  profiles:
+    active: github
+ctrip:
+  appid: 100003172
+server:
+  port: 2002
+  
+logging:
+  file: /opt/logs/apollo-adminservice-dev/apollo-adminservice.log
