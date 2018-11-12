@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiqi.upms.dao.UpmsUserDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qiqi.upms.model.UpmsUser">
+        <id column="user_id" property="userId" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="nickname" property="nickname" />
+        <result column="state" property="state" />
+        <result column="description" property="description" />
+        <result column="org_id" property="orgId" />
+    </resultMap>
+
+    <!-- userVo结果集 -->
+    <resultMap id="userVoResultMap" type="com.qiqi.common.model.vo.UserVO">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="nickname" property="nickname" />
+        <result column="state" property="state"/>
+        <result column="description" property="description"/>
+        <result column="org_id" property="orgId"/>
+        <result column="org_Name" property="orgName"/>
+
+    </resultMap>
+
+    <sql id="selectUserVo">
+        select a.*,b.org_name from upms_user a left join upms_org b on a.org_id = b.org_id
+    </sql>
+
+
+    <select id="listPage" resultType="java.util.Map">
+        <include refid="selectUserVo"/>
+        order by user_id
+    </select>
+
+
+
+    <select id="selectUserVoByUsername" resultMap="userVoResultMap">
+        <include refid="selectUserVo"/>
+        WHERE a.username = #{username}
+    </select>
+
+</mapper>

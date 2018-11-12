@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiqi.upms.dao.UpmsOrgDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qiqi.upms.model.UpmsOrg">
+        <id column="org_id" property="orgId" />
+        <result column="org_name" property="orgName" />
+        <result column="description" property="description" />
+        <result column="order_id" property="orderId" />
+        <result column="parent_id" property="parentId" />
+    </resultMap>
+    <select id="getTree" resultType="java.util.Map">
+        select a.org_Id id , a.org_name label , a.order_id,
+        a.description,a.parent_id,b.org_name parent_name
+        from upms_org a
+        left JOIN upms_org b on a.parent_id = b.org_id
+        ORDER BY order_id
+    </select>
+
+
+</mapper>

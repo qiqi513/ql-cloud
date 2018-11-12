@@ -1,0 +1,8 @@
+app:
+  id: upms
+apollo:
+  meta: http://localhost:2003 #指定dev环境
+  bootstrap:
+    enabled: true
+    # will inject 'application' and 'TEST1.apollo' namespaces in bootstrap phase
+    namespaces: application

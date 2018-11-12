@@ -1,0 +1,30 @@
+server:
+  port: 2001
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: cloud-upms
+      #lb代表从注册中心获取服务
+        uri: lb://cloud-upms
+        predicates:
+       # 转发路径
+        - Path=/api/upms/**
+        filters:
+        - SwaggerHeaderFilter
+       # 转发路径的前缀
+        - StripPrefix=2
+
+eureka:
+  instance:
+       prefer-ip-address: true
+       lease-renewal-interval-in-seconds: 5
+       lease-expiration-duration-in-seconds: 20
+  client:
+        serviceUrl:
+          defaultZone: http://localhost:2000/eureka/

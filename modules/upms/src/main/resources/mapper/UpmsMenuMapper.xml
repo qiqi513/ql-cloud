@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiqi.upms.dao.UpmsMenuDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qiqi.upms.model.UpmsMenu">
+        <id column="menu_id" property="menuId" />
+        <result column="menu_name" property="menuName" />
+        <result column="menu_type" property="menuType" />
+        <result column="menu_key" property="menuKey" />
+        <result column="menu_path" property="menuPath" />
+        <result column="component" property="component" />
+        <result column="menu_icon" property="menuIcon" />
+        <result column="description" property="description" />
+        <result column="order_id" property="orderId" />
+        <result column="parent_id" property="parentId" />
+    </resultMap>
+    <select id="getTree" resultType="java.util.Map">
+        select a.menu_id id , a.menu_name label, a.parent_id,
+        b.menu_name parent_name , a.menu_type,a.menu_key,a.menu_path,
+        a.component,a.menu_icon,a.description,a.order_id from upms_menu a
+        left join upms_menu b on a.parent_id = b.menu_id
+        order by  order_id
+    </select>
+
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiqi.upms.dao.UpmsUserRoleDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qiqi.upms.model.UpmsUserRole">
+        <id column="link_id" property="linkId" />
+        <result column="user_id" property="userId" />
+        <result column="role_id" property="roleId" />
+    </resultMap>
+    <select id="listPage" resultType="java.util.Map">
+    SELECT a.*,b.nickname,b.org_id user_org,d.org_name user_org_name,b.description user_des,
+    c.role_name,c.org_id role_org,e.org_name role_org_name,c.description role_des
+    FROM upms_user_role a
+    LEFT JOIN upms_user b on a.user_id = b.user_id
+    LEFT JOIN upms_org d on d.org_id = b.org_id
+    left join upms_role c on a.role_id = c.role_id
+    LEFT JOIN upms_org e on e.org_id = c.org_id
+    <where>
+        <if test="params.userId!=null and params.userId != ''">
+            and a.user_id = #{params.userId}
+        </if>
+        <if test="params.roleId!=null and params.roleId != ''">
+            and a.role_id = #{params.roleId}
+        </if>
+    </where>
+     order by link_id
+    </select>
+
+</mapper>
